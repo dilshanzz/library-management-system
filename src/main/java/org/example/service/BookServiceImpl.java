@@ -1,19 +1,21 @@
 package org.example.service;
 
+import lombok.RequiredArgsConstructor;
 import org.example.dto.Book;
 import org.example.entity.BookEntity;
 import org.example.repository.BookRepository;
-import org.example.service.BookService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
+@RequiredArgsConstructor
 
 public class BookServiceImpl implements BookService {
-    @Autowired
-    BookRepository repository;
+
+   final BookRepository repository;
 
 
     ModelMapper mapper;
@@ -26,4 +28,10 @@ public class BookServiceImpl implements BookService {
         BookEntity entity = mapper.map(book, BookEntity.class);
         repository.save(entity);
     }
+
+    @Override
+    public List<BookEntity> getBooks() {
+        return (List<BookEntity>) repository.findAll();
+    }
+
 }
