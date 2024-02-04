@@ -34,4 +34,13 @@ public class BookServiceImpl implements BookService {
         return (List<BookEntity>) repository.findAll();
     }
 
+    @Override
+    public boolean deleteBook(Long id) {
+        if(repository.existsById(id)){
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
 }
